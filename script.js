@@ -135,6 +135,18 @@ const changeQuantity = (product_id, type) => {
     addCartToMemory();
     addCartToHTML();
 }
+document.querySelector('.checkOut').addEventListener('click', () => {
+    checkout();
+});
+const checkout = () => {
+    let totalPrice = 0;
+    carts.forEach(cart => {
+        let positionProduct = listProducts.findIndex((value) => value.id == cart.product_id);
+        let product = listProducts[positionProduct];
+        totalPrice += product.price * cart.quantity;
+    });
+    document.querySelector('.total').textContent = `TOTAL: ₱${totalPrice.toFixed(2)}`;
+};
 const initApp = () => {
     fetch('products.json')
     .then(response => response.json())
